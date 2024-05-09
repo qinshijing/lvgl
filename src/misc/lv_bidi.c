@@ -65,6 +65,7 @@ static uint32_t get_txt_len(const char * txt, uint32_t max_len);
 static const uint8_t bracket_left[] = {"<({["};
 static const uint8_t bracket_right[] = {">)}]"};
 static const char * custom_neutrals = NULL;
+static const char * custom_weaks = NULL;
 
 /**********************
  *      MACROS
@@ -287,6 +288,11 @@ void lv_bidi_set_custom_neutrals_static(const char * neutrals)
     custom_neutrals = neutrals;
 }
 
+void lv_bidi_set_custom_weaks_static(const char * weaks)
+{
+    custom_weaks = weaks;
+}
+
 /**********************
  *   STATIC FUNCTIONS
  **********************/
@@ -330,7 +336,11 @@ static lv_base_dir_t lv_bidi_get_letter_dir(uint32_t letter)
 static bool lv_bidi_letter_is_weak(uint32_t letter)
 {
     uint32_t i = 0;
-    static const char weaks[] = "0123456789";
+    const char * weaks = "0123456789";
+
+    if(custom_weaks) {
+        weaks = custom_weaks;
+    }
 
     do {
         uint32_t x = lv_text_encoded_next(weaks, &i);
@@ -361,6 +371,7 @@ static bool lv_bidi_letter_is_rtl(uint32_t letter)
 
     return false;
 }
+
 
 /**
  * Tell whether a character is neutral or not

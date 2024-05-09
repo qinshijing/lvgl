@@ -121,6 +121,12 @@ void lv_bidi_calculate_align(lv_text_align_t * align, lv_base_dir_t * base_dir, 
  */
 void lv_bidi_set_custom_neutrals_static(const char * neutrals);
 
+/**
+ * Set custom weaks string
+ * @param weaks  default "0123456789"
+ */
+void lv_bidi_set_custom_weaks_static(const char * weaks);
+
 /**********************
  *      MACROS
  **********************/
